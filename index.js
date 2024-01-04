@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-  console.log(randomVerse)
+  console.log(randomVerse['_'])
   if (!randomVerse || !randomVerse['_'] || !Array.isArray(randomVerse['_']) || randomVerse['_'].length === 0) {
     res.status(500).json({ error: 'Estrutura do verso não está conforme o esperado.' });
     return;
