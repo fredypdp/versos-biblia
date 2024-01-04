@@ -6,12 +6,11 @@ app = Flask(__name__)
 
 # Função para extrair versos do arquivo XML
 def extract_verses(file):
-    with open(file, 'rb') as xml_file:
+    with open(file, 'r', encoding='utf-8') as xml_file:
         tree = etree.parse(xml_file)
-        verses = tree.xpath(".//v/text()")
-        print("tree", tree)
-        print("verses", verses)
-        return [verse.strip() for verse in verses if verse.strip()]  # Remove espaços em branco
+        verses = tree.xpath("//v//text()")
+        print(verses)
+        return [verse.strip() for verse in verses if verse.strip()]
 
 verses_text = extract_verses('biblia.xml')
 random.shuffle(verses_text)
