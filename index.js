@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
     return;
   }
 
-  const verses = parsedData.usfx.book[0].v;
-  const randomIndex = Math.floor(Math.random() * verses.length);
-  const randomVerse = verses[randomIndex];
-  console.log("parsedData " + JSON.stringify(randomVerse));
-  console.log(parsedData.usfx.book.length)
+  const randomBookIndex = Math.floor(Math.random() * parsedData.usfx.book.length);
+  const verses = parsedData.usfx.book[randomBookIndex].v;
+  const randomVerseIndex = Math.floor(Math.random() * verses.length);
+  const randomVerse = verses[randomVerseIndex];
+  console.log("parsedData " + JSON.stringify(randomVerse._));
   //console.log("Verses "+ verses)
   //console.log("randomIndex "+ randomIndex)
   //console.log("randomVerse "+ randomVerse)
