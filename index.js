@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
   const verses = randomBook.v.filter(verse => typeof verse === 'string');
 
-  console.log(randomBook.v)
+  console.log(randomBook.v[Math.floor(Math.random() * verses.length)])
   if (verses.length === 0) {
     res.status(500).json({ error: 'Estrutura do verso não está conforme o esperado.' });
     return;
