@@ -27,10 +27,10 @@ app.get('/', (req, res) => {
   const verses = parsedData.usfx.book[0].v;
   const randomIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomIndex];
-  console.log("parsedData " + parsedData.usfx.book)
-  console.log("Verses "+ verses)
-  console.log("randomIndex "+ randomIndex)
-  console.log("randomVerse "+ randomVerse)
+  console.log("parsedData " + parsedData.usfx.book[1].v)
+  //console.log("Verses "+ verses)
+  //console.log("randomIndex "+ randomIndex)
+  //console.log("randomVerse "+ randomVerse)
 
   res.json({ text: randomVerse._ }); // Retorna o texto da tag v aleatória
 });
