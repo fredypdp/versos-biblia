@@ -18,7 +18,7 @@ xml2js.parseString(xmlData, (err, result) => {
 });
 
 // Rota para obter um texto aleatório de uma tag v
-app.get('/randomText', (req, res) => {
+app.get('/', (req, res) => {
   if (!parsedData) {
     res.status(500).json({ error: 'Erro ao processar o arquivo XML.' });
     return;
