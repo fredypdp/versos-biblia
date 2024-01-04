@@ -8,14 +8,13 @@ app = Flask(__name__)
 tree = ET.parse('biblia.xml')
 root = tree.getroot()
 
+# Encontrar todas as tags <v> no XML
+verses = root.findall(".//v")
+verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
 
 for verse in verses:
     if verse.text is not None:
         print(verse.text)  # Isso imprime o texto de cada verso para verificar se está sendo extraído corretamente
-
-# Encontrar todas as tags <v> no XML
-verses = root.findall(".//v")
-verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
 
 # Rota para retornar um texto aleatório com a tag <v> sem remover
 @app.route('/')
