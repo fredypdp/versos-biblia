@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express();
 
 // Lê o arquivo XML
-const xmlData = fs.readFileSync('seuarquivo.xml');
+const xmlData = fs.readFileSync('biblia.xml');
 
 // Converte o XML para objeto JavaScript
 let parsedData;
