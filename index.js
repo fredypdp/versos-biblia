@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
     return;
   }
 
+  console.log(result)
   const books = result.usfx.book;
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
