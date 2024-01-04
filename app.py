@@ -12,7 +12,7 @@ root = tree.getroot()
 verses = root.findall(".//v")
 verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
 
-random.shuffle(verses_text)  # Embaralhar a lista de versos
+print(verses_text)  # Embaralhar a lista de versos
 
 # Rota para retornar um texto aleatório com a tag <v> sem remover
 @app.route('/random_verse')
@@ -21,7 +21,7 @@ def random_verse():
         random_verse = random.choice(verses_text)  # Escolhe um verso aleatório sem remover
         return random_verse
     else:
-        return "Todos os versos já foram enviados."
+        return "Nenhum verso encontrado."
 
 if __name__ == '__main__':
     app.run(debug=True)
