@@ -10,7 +10,8 @@ root = tree.getroot()
 
 # Encontrar todas as tags <v> no XML
 verses = root.findall(".//v")
-verses_text = [verse.text.strip() for verse in verses]  # Extrair textos dos versos
+verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
+
 random.shuffle(verses_text)  # Embaralhar a lista de versos
 
 # Rota para retornar um texto aleatório com a tag <v> sem repetir
