@@ -8,7 +8,7 @@ app = Flask(__name__)
 def extract_verses(file):
     with open(file, 'r', encoding='utf-8') as xml_file:
         tree = etree.parse(xml_file)
-        verses = tree.xpath("//v//text()")
+        verses = [elem.text for elem in tree.iterfind('.//v') if elem.text]
         print(verses)
         return [verse.strip() for verse in verses if verse.strip()]
 
