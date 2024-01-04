@@ -15,7 +15,6 @@ xml2js.parseString(xmlData, (err, result) => {
     return;
   }
   parsedData = result;
-  console.log(parsedData); // Verifique os dados do XML após a conversão
 });
 
 // Rota para obter um texto aleatório de uma tag v
@@ -34,20 +33,17 @@ app.get('/', (req, res) => {
     return;
   }
 
-  const verses = randomBook.v;
-  const randomVerseIndex = Math.floor(Math.random() * verses.length);
-  const randomVerse = verses[randomVerseIndex];
+  const verses = randomBook.v.filter(verse => typeof verse === 'string');
 
-  console.log(randomVerse['_'])
-  if (!randomVerse || !randomVerse['_'] || !Array.isArray(randomVerse['_']) || randomVerse['_'].length === 0) {
+  if (verses.length === 0) {
     res.status(500).json({ error: 'Estrutura do verso não está conforme o esperado.' });
     return;
   }
 
-  // Retorna o texto do verso na tag v aleatória
-  const verseText = randomVerse['_'][0];
+  const randomVerseIndex = Math.floor(Math.random() * verses.length);
+  const randomVerse = verses[randomVerseIndex];
 
-  res.json({ text: verseText });
+  res.json({ text: randomVerse.trim() });
 });
 
 const PORT = 3000;
