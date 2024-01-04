@@ -1,0 +1,10 @@
+{
+  "name": "api-versos",
+  "version": "1.0.0",
+  "description": "API para manipulação de XML",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "xml2js": "^0.4.24"
+  }
+}
