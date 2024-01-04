@@ -9,8 +9,8 @@ def extract_verses(file):
     with open(file, 'rb') as xml_file:
         tree = etree.parse(xml_file)
         verses = tree.xpath(".//v/text()")
-        print(tree)
-        print(verses)
+        print("tree", tree)
+        print("verses", verses)
         return [verse.strip() for verse in verses if verse.strip()]  # Remove espaços em branco
 
 verses_text = extract_verses('biblia.xml')
