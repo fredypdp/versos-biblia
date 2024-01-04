@@ -18,22 +18,20 @@ xml2js.parseString(xmlData, (err, result) => {
 });
 
 // Rota para obter um texto aleatório de uma tag v
-app.get('/', (req, res) => {
+app.get('/randomText', (req, res) => {
   if (!parsedData) {
     res.status(500).json({ error: 'Erro ao processar o arquivo XML.' });
     return;
   }
 
-  const randomBookIndex = Math.floor(Math.random() * parsedData.usfx.book.length);
-  const verses = parsedData.usfx.book[randomBookIndex].v;
-  const randomVerseIndex = Math.floor(Math.random() * verses.length);
-  const randomVerse = verses[randomVerseIndex];
-  console.log("parsedData " + JSON.stringify(randomVerse._));
-  //console.log("Verses "+ verses)
-  //console.log("randomIndex "+ randomIndex)
-  //console.log("randomVerse "+ randomVerse)
+  const verses = parsedData.usfx.book[0].v;
+  const randomIndex = Math.floor(Math.random() * verses.length);
+  const randomVerse = verses[randomIndex];
 
-  res.json({ text: randomVerse._ }); // Retorna o texto da tag v aleatória
+  // Retorna o texto do verso na tag v aleatória
+  const verseText = randomVerse['_'][0]; // Correção para obter o texto do verso
+
+  res.json({ text: verseText });
 });
 
 const PORT = 3000;
