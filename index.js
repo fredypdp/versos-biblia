@@ -4,34 +4,35 @@ const xml2js = require('xml2js');
 
 const app = express();
 
-// Função para ler o arquivo XML
-function readXMLFile() {
+let bibleData; // Armazena os dados da Bíblia após a leitura do arquivo XML
+
+// Função para ler o arquivo XML e analisar seu conteúdo
+function readAndParseXML() {
   const xml = fs.readFileSync('biblia.xml', 'utf-8');
   const parser = new xml2js.Parser({ explicitArray: false });
-  
-  let result;
+
   parser.parseString(xml, (err, res) => {
     if (err) {
       console.error('Erro ao analisar o arquivo XML:', err);
       return;
     }
-    result = res;
+    bibleData = res;
+    console.log('Arquivo XML lido e analisado com sucesso.');
   });
-
-  return result;
 }
 
+// Lê e analisa o XML quando o servidor é iniciado
+readAndParseXML();
+
+console.log(bibleData)
 // Rota para retornar um verso aleatório
 app.get('/', (req, res) => {
-  const result = readXMLFile();
-
-  if (!result || !result.usfx || !result.usfx.book) {
+  if (!bibleData || !bibleData.usfx || !bibleData.usfx.book) {
     res.status(500).send('Erro na estrutura do arquivo XML.');
     return;
   }
 
-  console.log(result)
-  const books = result.usfx.book;
+  const books = bibleData.usfx.book;
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
 
