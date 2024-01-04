@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
   const verses = parsedData.usfx.book[0].v;
   const randomIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomIndex];
-  console.log("parsedData " + JSON.stringify(parsedData.usfx.book[0].v[randomIndex]));
+  console.log("parsedData " + JSON.stringify(randomVerse);
+  console.log(parsedData.usfx.book.length)
   //console.log("Verses "+ verses)
   //console.log("randomIndex "+ randomIndex)
   //console.log("randomVerse "+ randomVerse)
