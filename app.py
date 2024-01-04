@@ -12,8 +12,7 @@ root = tree.getroot()
 verses = root.findall(".//v")
 verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
 
-print(verses_text)
-print([verse.text.strip() for verse in verses])
+print(verse.text.strip() for verse in verses)
 print(random.choice(verses_text))
 
 # Rota para retornar um texto aleatório com a tag <v> sem remover
