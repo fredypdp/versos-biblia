@@ -1,29 +1,29 @@
 from flask import Flask
-import xml.etree.ElementTree as ET
+from lxml import etree
 import random
 
 app = Flask(__name__)
 
-# Carregar o arquivo XML
-tree = ET.parse('biblia.xml')
-root = tree.getroot()
+# Função para extrair versos do arquivo XML
+def extract_verses(file):
+    with open(file, 'rb') as xml_file:
+        tree = etree.parse(xml_file)
+        verses = tree.xpath(".//v/text()")
+        return [verse.strip() for verse in verses if verse.strip()]  # Remove espaços em branco
 
-# Encontrar todas as tags <v> no XML
-verses = root.findall(".//v")
-verses_text = [verse.text.strip() for verse in verses if verse.text is not None]  # Extrair textos dos versos
+verses_text = extract_verses('biblia.xml')
+random.shuffle(verses_text)
 
-for verse in verses:
-    if verse.text is not None:
-        print(verse.text)  # Isso imprime o texto de cada verso para verificar se está sendo extraído corretamente
-
-# Rota para retornar um texto aleatório com a tag <v> sem remover
-@app.route('/')
+@app.route('/random_verse')
 def random_verse():
+    global verses_text
     if verses_text:
-        random_verse = random.choice(verses_text)  # Escolhe um verso aleatório sem remover
+        random_verse = random.choice(verses_text)
         return random_verse
     else:
-        return "Nenhum verso encontrado."
+        verses_text = extract_verses('biblia.xml')  # Recarrega os versos
+        random.shuffle(verses_text)
+        return "Todos os versos já foram enviados. Recarregando para mais versos."
 
 if __name__ == '__main__':
     app.run(debug=True)
