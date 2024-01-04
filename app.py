@@ -14,11 +14,11 @@ verses_text = [verse.text.strip() for verse in verses if verse.text is not None]
 
 random.shuffle(verses_text)  # Embaralhar a lista de versos
 
-# Rota para retornar um texto aleatório com a tag <v> sem repetir
+# Rota para retornar um texto aleatório com a tag <v> sem remover
 @app.route('/random_verse')
 def random_verse():
     if verses_text:
-        random_verse = verses_text.pop()  # Remove e retorna um verso aleatório não repetido
+        random_verse = random.choice(verses_text)  # Escolhe um verso aleatório sem remover
         return random_verse
     else:
         return "Todos os versos já foram enviados."
