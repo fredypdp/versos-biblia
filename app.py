@@ -13,6 +13,7 @@ def extract_verses(file):
 
 verses_text = extract_verses('biblia.xml')
 random.shuffle(verses_text)
+print(verses_text)
 
 @app.route('/random_verse')
 def random_verse():
