@@ -1,53 +1,49 @@
 const express = require('express');
-const xml2js = require('xml2js');
 const fs = require('fs');
+const xml2js = require('xml2js');
 
 const app = express();
 
-// Lê o arquivo XML
-const xmlData = fs.readFileSync('biblia.xml');
+// Função para ler o arquivo XML
+function readXMLFile() {
+  const xml = fs.readFileSync('biblia.xml', 'utf-8');
+  const parser = new xml2js.Parser({ explicitArray: false });
+  
+  let result;
+  parser.parseString(xml, (err, res) => {
+    if (err) {
+      console.error('Erro ao analisar o arquivo XML:', err);
+      return;
+    }
+    result = res;
+  });
 
-// Converte o XML para objeto JavaScript
-let parsedData;
-xml2js.parseString(xmlData, (err, result) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  parsedData = result;
-});
+  return result;
+}
 
-// Rota para obter um texto aleatório de uma tag v
+// Rota para retornar um verso aleatório
 app.get('/', (req, res) => {
-  if (!parsedData || !parsedData.usfx || !parsedData.usfx.book) {
-    res.status(500).json({ error: 'Estrutura do arquivo XML não está conforme o esperado.' });
+  const result = readXMLFile();
+
+  if (!result || !result.usfx || !result.usfx.book) {
+    res.status(500).send('Erro na estrutura do arquivo XML.');
     return;
   }
 
-  const books = parsedData.usfx.book;
+  const books = result.usfx.book;
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
 
-  if (!randomBook || !randomBook.v) {
-    res.status(500).json({ error: 'Estrutura do livro não está conforme o esperado.' });
-    return;
-  }
-
-  const verses = randomBook.v.filter(verse => typeof verse === 'string');
-
-  console.log(randomBook.v[Math.floor(Math.random() * verses.length)])
-  if (verses.length === 0) {
-    res.status(500).json({ error: 'Estrutura do verso não está conforme o esperado.' });
-    return;
-  }
-
+  const verses = randomBook.v;
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-  res.json({ text: randomVerse.trim() });
+  // Retornar o texto do verso aleatório
+  res.send(randomVerse._);
 });
 
-const PORT = 3000;
+// Iniciar o servidor na porta 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
