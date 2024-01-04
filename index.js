@@ -20,16 +20,24 @@ xml2js.parseString(xmlData, (err, result) => {
 
 // Rota para obter um texto aleatório de uma tag v
 app.get('/', (req, res) => {
-  if (!parsedData || !parsedData.usfx || !parsedData.usfx.book || !parsedData.usfx.book[0] || !parsedData.usfx.book[0].v) {
+  if (!parsedData || !parsedData.usfx || !parsedData.usfx.book) {
     res.status(500).json({ error: 'Estrutura do arquivo XML não está conforme o esperado.' });
     return;
   }
 
-  const verses = parsedData.usfx.book[0].v;
-  const randomIndex = Math.floor(Math.random() * verses.length);
-  const randomVerse = verses[randomIndex];
+  const books = parsedData.usfx.book;
+  const randomBookIndex = Math.floor(Math.random() * books.length);
+  const randomBook = books[randomBookIndex];
 
-  // Verifique se o randomVerse está definido e se possui a propriedade '_'
+  if (!randomBook || !randomBook.v) {
+    res.status(500).json({ error: 'Estrutura do livro não está conforme o esperado.' });
+    return;
+  }
+
+  const verses = randomBook.v;
+  const randomVerseIndex = Math.floor(Math.random() * verses.length);
+  const randomVerse = verses[randomVerseIndex];
+
   if (!randomVerse || !randomVerse['_'] || !Array.isArray(randomVerse['_']) || randomVerse['_'].length === 0) {
     res.status(500).json({ error: 'Estrutura do verso não está conforme o esperado.' });
     return;
