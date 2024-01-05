@@ -24,7 +24,7 @@ function readAndParseXML() {
 // Lê e analisa o XML quando o servidor é iniciado
 readAndParseXML();
 
-console.log(bibleData)
+console.log(JSON.stringify(bibleData))
 // Rota para retornar um verso aleatório
 app.get('/', (req, res) => {
   if (!bibleData || !bibleData.usfx || !bibleData.usfx.book) {
@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
     return;
   }
 
+  console.log(JSON.stringify(bibleData))
   const books = bibleData.usfx.book;
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
