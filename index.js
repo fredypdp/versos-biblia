@@ -24,7 +24,6 @@ function readAndParseXML() {
 // Lê e analisa o XML quando o servidor é iniciado
 readAndParseXML();
 
-console.log(JSON.stringify(bibleData))
 // Rota para retornar um verso aleatório
 app.get('/', (req, res) => {
   if (!bibleData || !bibleData.usfx || !bibleData.usfx.book) {
@@ -44,7 +43,7 @@ app.get('/', (req, res) => {
    console.log(JSON.stringify(randomVerse))
 
   // Retornar o texto do verso aleatório
-  res.send(randomVerse._);
+  res.json({verso: randomVerse._});
 });
 
 // Iniciar o servidor na porta 3000
