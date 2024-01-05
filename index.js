@@ -11,7 +11,6 @@ function readAndParseXML() {
   const xml = fs.readFileSync('biblia.xml', 'utf-8');
   const parser = new xml2js.Parser({ explicitArray: false });
 
-  console.log(parser);
   parser.parseString(xml, (err, res) => {
     if (err) {
       console.error('Erro ao analisar o arquivo XML:', err);
@@ -40,8 +39,9 @@ app.get('/', (req, res) => {
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-   console.log(JSON.stringify(randomBook._))
-   console.log(JSON.stringify(randomVerse))
+  console.log(JSON.stringify(randomBook.v))
+  console.log(JSON.stringify(randomBook._))
+  console.log(JSON.stringify(randomVerse))
 
   // Retornar o texto do verso aleatório
   res.json({verso: randomVerse._});
