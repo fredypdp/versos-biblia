@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
     return;
   }
 
-  console.log(JSON.stringify(bibleData))
   const books = bibleData.usfx.book;
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
@@ -40,6 +39,9 @@ app.get('/', (req, res) => {
   const verses = randomBook.v;
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
+
+   console.log(JSON.stringify(randomBook))
+   console.log(JSON.stringify(randomVerse))
 
   // Retornar o texto do verso aleatório
   res.send(randomVerse._);
