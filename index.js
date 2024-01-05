@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-  console.log(verses);
+  console.log(randomVerse);
 
   // Retornar o texto do verso aleatório
   res.json({verso: randomVerse._});
