@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
   console.log(randomVerse);
 
   // Retornar o texto do verso aleatório
-  res.json({verso: randomVerse._});
+  res.send(randomVerse});
 });
 
 // Iniciar o servidor na porta 3000
