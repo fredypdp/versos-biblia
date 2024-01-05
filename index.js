@@ -49,10 +49,8 @@ app.get('/', (req, res) => {
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-  console.log(randomVerse);
-
   // Retornar o texto do verso aleatório
-  res.send(randomVerse});
+  res.send(randomVerse);
 });
 
 // Iniciar o servidor na porta 3000
