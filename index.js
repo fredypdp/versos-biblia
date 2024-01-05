@@ -24,6 +24,16 @@ function readAndParseXML() {
 // Lê e analisa o XML quando o servidor é iniciado
 readAndParseXML();
 
+function stringToArray(string) {
+  // Separando a string por quebras de linha
+  const array = string.split('\r\n');
+
+  // Removendo elementos vazios do array (linhas em branco)
+  const filteredArray = array.filter((line) => line.trim() !== '');
+
+  return filteredArray;
+}
+
 // Rota para retornar um verso aleatório
 app.get('/', (req, res) => {
   if (!bibleData || !bibleData.usfx || !bibleData.usfx.book) {
@@ -35,13 +45,11 @@ app.get('/', (req, res) => {
   const randomBookIndex = Math.floor(Math.random() * books.length);
   const randomBook = books[randomBookIndex];
 
-  const verses = randomBook.v;
+  const verses = stringToArray(randomBook._);
   const randomVerseIndex = Math.floor(Math.random() * verses.length);
   const randomVerse = verses[randomVerseIndex];
 
-  console.log(JSON.stringify(randomBook.v))
-  console.log(JSON.stringify(randomBook._))
-  console.log(JSON.stringify(randomVerse))
+  console.log(verses);
 
   // Retornar o texto do verso aleatório
   res.json({verso: randomVerse._});
